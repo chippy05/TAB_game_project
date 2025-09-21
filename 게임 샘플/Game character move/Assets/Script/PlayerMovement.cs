@@ -1,0 +1,36 @@
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    public float speed = 3f;
+    private Animator animator;
+    private Rigidbody2D rb;
+    private Vector2 movement;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        // 입력 받기
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        // 애니메이터 파라미터 세팅
+        animator.SetFloat("MoveX", movement.x);
+        animator.SetFloat("MoveY", movement.y);
+        animator.SetBool("IsMoving", movement.sqrMagnitude > 0);
+    }
+
+    void FixedUpdate()
+    {
+        // 실제 이동
+        if (movement.sqrMagnitude > 0)
+        {
+            rb.MovePosition(rb.position + movement.normalized * speed * Time.fixedDeltaTime);
+        }
+    }
+}
