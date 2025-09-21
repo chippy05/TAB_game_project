@@ -48,7 +48,6 @@ public class NPCMovement : MonoBehaviour
 
     void ChooseDirection()
     {
-        // �����¿� ���� ����
         int dir = Random.Range(0, 4);
         switch (dir)
         {
